@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <string.h>						//Ho aggiunto la libreria delle stringhe che servirà a fine esercizio
+
+void menu ();
+void moltiplica ();
+void dividi ();
+void ins_string();
+
+
+int main () 
+
+{
+	char scelta;				
+do{								//inizio un ciclo do-while così che in caso l'utente inserisca un comando diverso da A,B o C
+	menu ();						//il programma non si blocca e si può ridare un nuovo input
+
+	scanf ("%c", &scelta);					//modificato %d con %c
+
+	switch (scelta)
+	{
+		case 'A':
+				moltiplica();
+				break;
+		case 'B':
+                dividi();
+                break;
+		case 'C':
+                ins_string();
+                break;
+        case 'X':							//creato un nuovo caso nel ciclo switch chiamato X per dare la possibilità
+                printf("Arrivederci");					//all'utente di uscire dal gioco
+        break;
+    	default:							//Inserito default che manda un messaggio all'utente se inserisce l'input errato
+    	printf("ERRORE\n");
+    	break;
+    	
+    if (scelta!='A'& scelta!='B' & scelta!='C' & scelta!='X')             // qui dichiaro che se l'input dell'utente è diverso da A,B o C è una
+    {									  // scelta non valida
+        printf("Scelta non valida.\n");
+     }
+    }
+} while (scelta!='X');							//con il while chiudo il ciclo
+
+     
+
+
+return 0;
+
+}
+
+
+void menu ()
+{
+	printf ("Benvenuto, sono un assitente digitale, posso aiutarti a sbrigare alcuni compiti\n");
+	printf ("Come posso aiutarti?\n");
+	printf ("A >> Moltiplicare due numeri\nB >> Dividere due numeri\nC >> Inserire una stringa\nX >> Uscita\n");	//ho aggiunto la X per far in modo 
+															//che l'utente posso uscire
+}
+
+
+void moltiplica ()
+{
+	double  a,b = 0;							  	//tolto short int e messo double così da poter inserire numeri più grandi
+																
+	printf ("Inserisci i due numeri da moltiplicare:");
+	scanf (" %lf", &a);								//inserito lf al posto di f perchè abbiamo dichiarato che la variabile è double
+	scanf (" %lf", &b);								//su tutte e due gli scanf
+
+	double prodotto = a * b;							// tolto short int e mettere double sempre per la possibilità che il risultato
+											//sia un numero grande
+	printf ("Il prodotto tra %.2lf e %.2lf e': %.2lf", a,b,prodotto);		//sistemato tutte le %d con le %lf
+}
+
+
+void dividi ()
+{
+        float  a,b = 0;									//cambiato int con float così da poter mettere numeri decimali
+        
+        printf ("Inserisci il numeratore:");
+        scanf (" %f", &a);								//cambiato %d con %f perchè sono numeri float
+		printf ("Inserisci il denumeratore:");
+        scanf (" %f", &b);								//cambiato %d con %f perchè sono numeri float
+        
+        if (b==0){
+            printf("\nImpossibile dividere per 0\n");				//inserito un'istruzione per dichiarare che non si può utilizzare il denumeratore = a 0
+        }									//perchè non è un calcolo possibile
+
+        float divisione = a / b;						//cambiato int in float
+
+        printf ("La divisione tra %.2f e %.2f e': %.2f", a,b,divisione);	//cambiato divisione da %d a %.2f perchè float  
+}										// con 2 numeri dopo la virgola
+
+
+
+
+
+void ins_string () 
+{
+	char stringa[100];							//aumentato il valore della stringa così da poter inserire più caratteri			
+	int lunghezzaMassima = 30;
+
+    do{  									//ho creato un ciclo do-while per aver la possibilità di inserire una frase
+	printf ("Inserisci la frase con massimo 30 valori:");			//composta da più parole anche staccate da uno spazio utilizzando la
+        scanf("\n%[^\n]s",stringa);						//funzione strlen, se la frase inserita dall'utente è superiore alla
+										//variabile che ho impostato in precedenza il programma fa ripetere
+        if (strlen(stringa) > lunghezzaMassima) {				//l'inserimento
+            printf("La frase è troppo lunga, riprova.\n");
+            scanf("\n%[^\n]s", stringa); 
+	}
+        } while(strlen (stringa) >lunghezzaMassima);
+        
+        
+        printf("\nHai insierito questa stringa: %s\n\n",stringa);
+
+    
+}
